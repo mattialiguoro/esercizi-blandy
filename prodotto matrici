@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+#pragma warning (disable: 4996)
+#pragma warning (disable: 6031)
+
+#define MAX_N 50
+#define MAX_M 50
+#define MAX_P 50
+
+int main(void)
+{
+
+	int matrice1[MAX_N][MAX_M];
+	int matrice2[MAX_M][MAX_P];
+	int matrice3[MAX_N][MAX_P];
+
+	int n, m, m1, p;
+	int i, j, k;
+
+	setlocale(LC_CTYPE, "italian");
+	
+	printf("Inserisci le dimensioni della prima matrice ");
+	scanf("%d%d", &n, &m);
+	printf("\n");
+	if (n > MAX_N || m > MAX_M)
+		printf("Quantità di dati non gestibile!\n");
+	else
+	{
+		do
+		{
+			printf("Inserisci le dimensioni della seconda matrice ");
+			scanf("%d%d", &m1, &p);
+			if (m1 != m)
+				printf("Per effettuare il prodotto di due matrice è necessario che la seconda matrice abbia un numero di righe uguale al numero di colonne dela prima matrice, reinserisci!\n");
+		} while (m1 != m);
+
+		printf("\n");
+		for (i = 0; i < n; i++)
+
+			for (j = 0; j < m; j++)
+			{
+				printf("Inserisci il %d° valore della %d^ riga della prima matrice: ", j + 1, i + 1);
+				scanf("%d", &matrice1[i][j]);
+			}
+		printf("\n\n");
+		for (i = 0; i < m; i++)
+			for (j = 0; j < p; j++)
+			{
+				printf("Inserisci il %d° valore della %d^ riga della seconda matrice: ", j + 1, i + 1);
+				scanf("%d", &matrice2[i][j]);
+			}
+
+		for (i = 0; i < n; i++)
+			for (j = 0; j < p; j++)
+			{
+				matrice3[i][j] = 0;
+				for (k = 0; k < m; k++)
+					matrice3[i][j] = matrice3[i][j] + matrice1[i][k] * matrice2[k][j];
+			}
+
+		printf("\nVisualizziamo i dati della matrice prodotto \n");
+		for (i = 0; i < n; i++)
+		{
+			printf("\n");
+			for (j = 0; j < p; j++)
+				printf(" %d ", matrice3[i][j]);
+		}
+	}
+
+	printf("\n\n");
+	system("pause");
+	return 0;
+}
