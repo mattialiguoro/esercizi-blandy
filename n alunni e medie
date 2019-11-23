@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <string.h>
+
+#pragma warning (disable: 4996)
+#pragma warning (disable: 6031)
+#define MAX_N 50
+#define MAX_M 50
+
+int main(void)
+{
+	char listaAlunni[MAX_N][MAX_M];
+	int matrice[MAX_N][MAX_M];
+	int i, n, j, m;
+	int somma[MAX_N];
+		
+	setlocale(LC_CTYPE, "italian");
+
+	printf("Quanti alunni vuoi inserire? ");
+	scanf("%d", &n);
+	if (n > MAX_N)
+		printf("Quantità di dati non gestibile!\n");
+	else
+	{
+		printf("\nQuante prove vuoi prendere in analisi? ");
+		scanf("%d", &m);
+		if (m > MAX_M)
+			printf("Quantità di dati non gestibile!\n");
+		else
+		{
+			for (i = 0; i < n; i++)
+			{
+				printf("\nInserisci il cognome del %d alunno : ", i + 1);
+				scanf("%s", listaAlunni[i]);
+			}
+			printf("\n");
+			for (i = 0; i < n; i++)
+				for (j = 0; j < m; j++)
+				{
+					somma[j] = 0;
+					do
+					{
+						printf("Inserisci il valore dell'alunno %s alla %d° prova: \n", listaAlunni[i], j + 1);
+						scanf("%d", &matrice[i][j]);
+					} while (matrice[i][j] <= 0 || matrice[i][j] > 10);
+				}
+			printf("\n");
+
+			for (i = 0; i < n; i++)
+				for (j = 0; j < m; j++)
+					somma[i] = somma[i] + matrice[i][j];
+			for (i = 0; i < n; i++)
+				printf(" %d ", somma[i]);
+
+			for (i = 0; i < n; i++)
+				printf("La media dell'alunno %s è: %.2f\n", listaAlunni[i], ((float)somma[i]/m));
+		}
+	}
+
+	printf("\n\n");
+	system("pause");
+	return 0;
+}
